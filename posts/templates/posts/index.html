@@ -9,9 +9,40 @@
 {% endblock %}
 
 {% block content %}
-    {% for post in posts %}
+    {% for post in pages.items %}
         <p>
             <a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post.title }}</a>
         </p>
     {% endfor %}
+
+
+    <nav>
+      <ul class="pagination">
+        <li {% if not pages.has_prev %} class="page-item disabled" {% endif %} >
+          <a class="page-link" href="./?page={{ pages.prev_num }}" tabindex="-1">Previous</a>
+        </li>
+
+        {% for page in pages.iter_pages() %}
+
+            <li {% if page == pages.page %} class="active" {% endif %} >
+                <a class="page-link" href="./?page={{ page }}">{{ page }}</a>
+            </li>
+
+        {% endfor %}
+
+        <li>
+          {% if pages.has_next %} <a class="page-link" href="./?page={{ pages.next_num }}">Next</a> {% endif %}
+        </li>
+      </ul>
+    </nav>
+
+
+{% endblock %}
+
+{% block button %}
+
+    <form class="navbar-form navbar-left" action="{{ url_for('posts.create_post') }}">
+        <button type="submit" style="background: chartreuse">New post</button>
+    </form>
+
 {% endblock %}
