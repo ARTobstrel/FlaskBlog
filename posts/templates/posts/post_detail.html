@@ -18,3 +18,11 @@
         {{ post.body }}
     </div>
 {% endblock %}
+
+{% block button %}
+
+    <form class="navbar-form navbar-left" action="{{ url_for('posts.edit_post', slug=post.slug) }}">
+        <button type="submit" style="background: chartreuse">Edit post</button>
+    </form>
+
+{% endblock %}
