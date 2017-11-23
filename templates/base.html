@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>
+<head>
+	<meta charset="UTF-8">
+	<title>
 
-            {% block title %}
+		{% block title %}
 
-            {% endblock %} | Flask app
+		{% endblock %} | Flask app
 
-        </title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    </head>
+	</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 
-    <body>
+<body>
 
-    	<nav class="navbar navbar-inverse">
-    		<div class="container-fluid">
-    			<!-- Brand and toggle get grouped for better mobile display -->
-    			<div class="navbar-header">
-    				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-    					<span class="sr-only">Toggle navigation</span>
-    					<span class="icon-bar"></span>
-    					<span class="icon-bar"></span>
-    					<span class="icon-bar"></span>
-    				</button>
-    				<a class="navbar-brand" href="{{ url_for('index') }}">Flask</a>
-    			</div>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{ url_for('index') }}">Flask</a>
+		</div>
 
-    			<!-- Collect the nav links, forms, and other content for toggling -->
-    			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    				<ul class="nav navbar-nav">
-    					<li class="active"><a href="{{ url_for('posts.index') }}">blogs<span class="sr-only">(current)</span></a></li>
-    					<li><a href="#">sssss</a></li>
-    				</ul>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="{{ url_for('posts.index') }}">blogs<span class="sr-only">(current)</span></a></li>
+			</ul>
 
-    				<form class="navbar-form navbar-left" method="GET">
-    					<div class="form-group">
-    						<input type="text" class="form-control" placeholder="Search" name="q" value="{{ request.args.get('q', '') }}">
-    					</div>
-    					<button type="submit" class="btn btn-default">Submit</button>
-    				</form>
+			<form class="navbar-form navbar-left" method="GET">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search" name="q" value="{{ request.args.get('q', '') }}">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
 
-    				<ul class="nav navbar-nav navbar-right">
-						 <li>
-                             {% if current_user.has_role('admin') %}
-                                <a href="/admin">Admin</a>
-                             {% endif %}
-                         </li>
-    				</ul>
-    			</div><!-- /.navbar-collapse -->
-    		</div><!-- /.container-fluid -->
-    	</nav>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					{% if current_user.has_role('admin') %}
+					<a href="/admin">Admin</a>
+					{% endif %}
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
 
-    	<div class="container">
-    		<div class="row">
-    			<h1>
+<div class="container">
+	<div class="row">
+		<h1>
 
-                    {% block content_title %}
+			{% block content_title %}
 
-                    {% endblock %}    
+			{% endblock %}
 
-                </h1>
+		</h1>
 
-                {% block content %}
+		{% block content %}
 
-                {% endblock %}
+		{% endblock %}
 
-				{% block button %}
+		{% block button %}
 
-				{% endblock %}
+		{% endblock %}
 
-    		</div>
-    	</div>
+	</div>
+</div>
      
-	</body>
+</body>
 
 </html>

@@ -11,7 +11,7 @@ posts = Blueprint('posts', __name__, template_folder='templates')
 
 
 # создание постов
-#http://localhost/blog/create
+# http://localhost/blog/create
 @posts.route('/create', methods=['POST', 'GET'])
 @login_required
 def create_post():
@@ -22,12 +22,12 @@ def create_post():
 
         try:
             post = Post(title=title, body=body)
-            db.session.add(post)
+            db.session.add  (post)
             db.session.commit()
         except:
             print('Something wrong')
 
-        return redirect(url_for('posts.index'))
+            return redirect(url_for('posts.index'))
 
     form = PostForm()
     return render_template('posts/create_post.html', form=form)
@@ -37,7 +37,7 @@ def create_post():
 @posts.route('/<slug>/edit/', methods=['POST', 'GET'])
 @login_required
 def edit_post(slug):
-    post = Post.query.filter(Post.slug==slug).first()
+    post = Post.query.filter(Post.slug==slug).first_or_404()
 
     if request.method == 'POST':
         form = PostForm(formdata=request.form, obj=post)
@@ -74,7 +74,7 @@ def index():
 
 @posts.route('/<slug>')
 def post_detail(slug):
-    post = Post.query.filter(Post.slug==slug).first()
+    post = Post.query.filter(Post.slug==slug).first_or_404()
     tags = post.tags
     return render_template('posts/post_detail.html', post=post, tags=tags)
 
@@ -82,6 +82,6 @@ def post_detail(slug):
 # http://localhost/blog/tag/python
 @posts.route('/tag/<slug>')
 def tag_detail(slug):
-    tag = Tag.query.filter(Tag.slug==slug).first()
+    tag = Tag.query.filter(Tag.slug==slug).first_or_404()
     posts = tag.posts.all()
     return render_template('posts/tag_detail.html', tag=tag, posts=posts)
